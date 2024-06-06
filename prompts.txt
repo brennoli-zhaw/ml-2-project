@@ -1,0 +1,43 @@
+# this file contains a number of prompts that where used, for the model to give better answers:
+
+Models: llava(different versions)(quantized), llava-phi-3-mini(quantized), idefics2-8b(quantized), gpt-4o
+    "You are given four images, separated with white lines. \
+    What is the person holding in the images? The person can only hold following objects: {','.join(possible_objects)}\
+    Format your response as a JSON object. \
+    Add the key 'objects' containing an array of objects with key 'name' and 'quantity' for each object the person is holding. \
+    Also add foreach object, if it was added or taken away from the cardboard box."
+
+    "You are responsible for checking which objects were put or taken away from the box. You are given a series of 4 images, separated by a white line. \
+    In this series of 4 images an action is happening. This action shows a person holding none to few of the following objects: {','.join(possible_objects)}.\
+    \n Read the images from left to right. Is the object going farther or closer to the box? \
+    \nFormat your response as a JSON object. \
+    Foreach object that is visible in the image. Add if it is drawn closer or farther away from the box add a key 'object' containing the object name and a key 'direction' containing either 'closer' or 'farther'."
+
+Models: idefics2-8b
+    [
+        {
+            "role": "user",
+            "content": [
+                {"type": "image"},
+                {"type": "text", "text": "What do we see in this image?"},
+            ]
+        },
+        {
+            "role": "assistant",
+            "content": [
+                {"type": "text", "text": "In this image we can see a person holding an object 'banana'. Next to a cardboardbox"},
+            ]
+        },
+        {
+            "role": "user",
+            "content": [
+                {"type": "image"},
+                {"type": "text", "text": "What happens to the object 'banana' based on the image before and the image given now? Can you answer me with a JSON object? \
+                The JSON object should contain the key 'objects' containing an array of objects with key 'name', 'quantity' and 'isAdded' for each object that goes into or out of the box"
+                },
+            ]
+        }    
+    ]
+
+Models: gpt-4o
+    "A series of images is provided to you. You are asked to provide information about the action that is happening in this series of images. The endgoal is, to tell if there is something inside the cardboard box. To give enough information you are asked to formulate your answer as a JSON object. The JSON structure is as followed: { objects: [ name: "give the object a name" ,  quantity: "quantity", isAdded : "Boolean which is True if the object is added to the cardboard box or False if it is taken away"]}"
