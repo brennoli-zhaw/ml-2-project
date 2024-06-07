@@ -39,9 +39,9 @@ opencv-python==4.10.0.82
 opt-einsum==3.3.0
 packaging==24.0
 parso==0.8.4
-pillow==10.3.0
+#pillow==10.3.0
 platformdirs==4.2.2
-prompt_toolkit==3.0.46
+#prompt_toolkit==3.0.46
 protobuf==4.25.3
 #psutil==5.9.8
 pure-eval==0.2.2
