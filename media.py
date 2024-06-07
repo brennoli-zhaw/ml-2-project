@@ -5,8 +5,6 @@ import mediapipe as mp
 import math
 import base64
 
-
-
 # Open a video capture object (0 for the default camera)
 
 #this function will split your video into single images, making it easier to obtain training data 

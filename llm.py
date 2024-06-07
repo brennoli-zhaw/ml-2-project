@@ -12,6 +12,7 @@ IMGMODEL = "gpt-4o"
 #create a .env file in the root directory and add the OPENAI_API_KEY
 openai_key = ""
 load_dotenv()
+#automate the process of getting the api key, depending on the system you are running the code
 if os.getenv('OPENAI_API_KEY') is None:
     #if you are running the code in google colab
     #im not sure if .env files are supported in google colab
@@ -30,6 +31,7 @@ def getSystemPrompt(prompt : str):
         return "You oversee if an object is placed into or taken away from the cardboard box."
     return prompt
 
+#here we do some kind of mapping for specific prompts, just to shortcut them, with the drawback of not being able to use the mapping for other prompts
 def getPrompt(prompt : str = None):
     if prompt == "oversee contents":
         #note that this prompt takes data from cb.py
