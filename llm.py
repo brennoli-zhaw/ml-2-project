@@ -29,26 +29,29 @@ def getSystemPrompt(prompt : str):
         return "You oversee what is in the cardboard box. Your goal is, to tell what objects are in the cardboard."
     if prompt == "add or remove object":
         return "You oversee if an object is placed into or taken away from the cardboard box."
+    if prompt == "compare contents":
+        return "You compare two json objects."
     return prompt
 
 #here we do some kind of mapping for specific prompts, just to shortcut them, with the drawback of not being able to use the mapping for other prompts
-def getPrompt(prompt : str = None):
+def getPrompt(prompt : str = None, additionalData = None):
     if prompt == "oversee contents":
         #note that this prompt takes data from cb.py
         return f'A series of images is provided to you. You are asked to provide information about what is stored in the cardboard box after the action in the images provided. Before the actions in the images the following was in the box: {cb.getCardboardBoxContents(wantJson = True)}. The JSON structure is as followed: {cb.getObjectInCardboardDescription()} For example: {cb.exampleInCardboardJson()}. If something is added to the cardboard box and its name is already in the object, just increase the quantity, otherwise decrease it or add a new object.'
     if prompt == "add or remove object":
         return f'You get this series of images, which are divided by a white line. You are asked if the action in the image is adding or removing any quantities of objects into or from the cardboard box. Respond in JSON format. The JSON structure is as followed: {cb.getActionDescription()} For example: {cb.exampleActionJson()}.'
+    if prompt == "compare contents":
+        return f'You are asked to compare two JSON objects, which represent the contents a cardboard box. The first object is the correct one, the second one is the one you have to compare with the first one. Are the names of the objects similar in meaning? I want to know if they represent a similar thing. Are the quantities of the objects similar? Here are the valid contents: {additionalData[0]}. Here are the ones to compare: {additionalData[1]}. Your answer should look like this: {cb.exampleComparissionObject()}.'
     return prompt
 
 def returnJSONAnswerPrompt(originalPrompt : str = None):
-    originalPrompt = getPrompt(originalPrompt)
     return f"Answer only in JSON format: {originalPrompt}"
 
-def promptLLM(prompt : str = None, image : str = None, wantJson : bool = False, returnDict : bool = False):
+def promptLLM(prompt : str = None, additionalData = None, image : str = None, wantJson : bool = False, returnDict : bool = False):
     returnValue = ""
     messages = [{"role": "system", "content" : getSystemPrompt(prompt)}]
     modelToUse = TEXTMODEL
-    prompt = getPrompt(prompt)
+    prompt = getPrompt(prompt, additionalData)
     #force it to be a json answer prompt
     prompt = prompt if not wantJson else returnJSONAnswerPrompt(prompt)
     messages.append({"role": "user", "content": [{ 

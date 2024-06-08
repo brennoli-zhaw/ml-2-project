@@ -12,6 +12,9 @@ def getObjectInCardboardDescription():
 def exampleActionJson():
     return '{"objects": [{"name": "apple", "isAdded": "True", "quantity": "5"}]}'
 
+def exampleComparissionObject():
+    return '{"objects": [{"name": "some name", "quantity": "some quantity", "similarity_name": "describe hwo similar the names are by their meaning. Score the similiarity from 0.0 to 1.0.", "similarity_quantity" : "describe if the numbers are close to each other. Score the similarity from 0.0 to 1.0.", "description": "describe how you would come to this comparission"}]}'
+
 def getActionDescription():
     return "{ objects: [ name: 'give the object a name' ,  isAdded: 'True if object is added, False if object is removed', quantity: 'quantity of objects related to the adding or removing action']}"
 

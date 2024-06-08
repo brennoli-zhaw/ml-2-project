@@ -1,3 +1,16 @@
+# Setup
+This section contains information about how to setup the project on your desktop or collab environment:
+**Desktop**<br/>
+1. Create a virtual environment - I used Python 3.12.1
+2. run pip install -r requirements.txt
+3. Add a env. file to your project containing: OPENAI_API_KEY = "ask me for the key"
+3. check the instruction in the main.ipynb file
+**Collab**<br/>
+1. Import the collab_requirements.txt into your collab directory - can be found on the left side of the window.
+2. run the first codeblock of the the notebook.
+3. If no error message occured and collab did not ask to restart, you are good to go. Otherwise remove lines which seem to produce errors.
+4. Import all the files of the project into google collab. Directories need to be the same aswell.
+
 # Project Overview
 For more details on my work, please refer to the main notebook. It provides a clearer explanation of my approach and goals. However, this README.md serves as an introduction to the project.
 
@@ -45,5 +58,7 @@ For all models except chatGPT, only the second approach produced somewhat satisf
 
 ## Interpretation and Validation
 For more details on the interpretation and validation process, please refer to the notebook.<br/>
+Most of the validation involved humans comparing the results provided the images.
+I initially thought I could compare two JSON objects: one with the valid contents of a box and one with the model's predictions. However, this task proved to be complex enough to be a project in itself, and I was unable to complete it. <br/>
 I was impressed with how accurately chatGPT identified the box's contents, as long as only one object changed per image. However, it struggled with labeling the objects correctly. Image resolution significantly impacted prediction accuracy; higher resolution images improved the results, while lower resolution images led to poorer predictions.<br/>
 The open-source models I tested often produced inaccurate ("hallucinated") results and struggled to interpret the imageSeries correctly, treating them as single images instead.
